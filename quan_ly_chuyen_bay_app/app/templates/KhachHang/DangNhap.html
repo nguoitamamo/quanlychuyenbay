@@ -1,0 +1,44 @@
+{% extends "Layout/Base.html" %}
+{% block content %}
+    <form action="/DangNhap" style='margin : 100px auto' method='post'>
+
+        {% if err %}
+            <div class="alert alert-danger text-center mt-1">{{ err }}</div>
+        {% endif %}
+
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="text" id="tai_khoan" class="form-control" name="tai_khoan" placeholder="Tài khoản">
+        </div>
+
+        <div data-mdb-input-init class="form-outline mb-4">
+            <input type="password" id="mat_khau" class="form-control" name="mat_khau" placeholder="Mật khẩu">
+        </div>
+
+
+        <div class="text-center mb-4" style="display: flex">
+            <input type="text" id="captcha" class="form-control" name="captcha" placeholder="Mã bảo vệ">
+            <img src="/captcha" alt="CAPTCHA" id="captcha-img"/>
+            <button type="button" onclick="refreshCaptcha()">🔄</button>
+
+        </div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <div data-mdb-input-init class="d-flex justify-content-center form-outline mb-4">
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Đăng
+                nhập
+            </button>
+        </div>
+
+        <div class="text-center">
+            <p><a href="/DangKy">Đăng Ký</a></p>
+        </div>
+
+        <div class="text-center">
+            <p><a href="/QuenMatKhau">Quên mật khẩu ?</a></p>
+        </div>
+    </form>
+    <script>
+        function refreshCaptcha() {
+            document.getElementById("captcha-img").src = "/captcha?" + Date.now(); // Tải lại hình ảnh mới
+        }
+    </script>
+{% endblock %}
