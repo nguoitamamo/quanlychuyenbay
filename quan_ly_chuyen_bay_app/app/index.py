@@ -104,6 +104,7 @@ def lay_du_lieu_bao_cao():
         return jsonify(data)
 
 
+
 @app.route("/api/ThemGioHang", methods=['POST'])
 def them_gio_hang():
     if current_user.is_authenticated and current_user.user_role == UserRole.KHACH_HANG:
@@ -311,7 +312,7 @@ def dang_nhap():
     if not (current_user.is_authenticated and current_user.user_role == UserRole.NHAN_VIEN):
         err = None
         if request.method == 'POST':
-            link = request.args.get("link")
+            link = session.get('link')
             tai_khoan = request.form.get("tai_khoan").strip()
             mat_khau = request.form.get("mat_khau").strip()
             captcha_input = request.form.get("captcha")
@@ -328,15 +329,16 @@ def dang_nhap():
             if khach_hang:
                 login_user(khach_hang)
                 if link:
-
+                    print(link)
                     return redirect(link)
-
-                print(link)
                 return redirect("/")
             else:
                 err = "Sai mật khẩu hoặc tài khoản"
 
-        return render_template("KhachHang/DangNhap.html", err=err)
+            return render_template("KhachHang/DangNhap.html", err=err)
+        else:
+            session['link'] = request.args.get("link")
+            return render_template("KhachHang/DangNhap.html")
     else:
         return redirect("/NhanVien")
 

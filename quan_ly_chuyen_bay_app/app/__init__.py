@@ -22,5 +22,5 @@ cloudinary.config(
 limiter = Limiter(
     key_func=  get_remote_address,  # Lấy địa chỉ IP client
     app=app,
-    default_limits=["10 per minute"]  # Giới hạn 5 request/phút
+    default_limits=["100 per minute"]
 )

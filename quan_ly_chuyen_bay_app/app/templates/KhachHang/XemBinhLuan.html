@@ -10,7 +10,10 @@
     {% endif %}
 </div>
 {% else %}
-<div class="alert alert-info mt-1">Vui lòng <a href="/DangNhap?link=/XemBinhLuan">đăng nhập</a> để bình luận!</div>
+<div class="alert alert-info mt-1">Vui lòng
+    <a href="{{ url_for ('dang_nhap', link = '/XemBinhLuan') }}">
+        đăng nhập</a> để bình luận!
+</div>
 {% endif %}
 <ul class="list-group mt-2" id="dsBinhLuan">
     {% for ve in ds_ve %}
