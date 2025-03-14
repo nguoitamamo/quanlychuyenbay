@@ -8,7 +8,7 @@ from flask_wtf import CSRFProtect
 
 app = Flask(__name__)
 app.secret_key = "((*DSKLFJLSKJF)(W(#)))"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:594362@localhost/quanlychuyenbay2?charset=utf8mb4"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:matkhau@localhost/quanlychuyenbay2?charset=utf8mb4"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
 app.config['PAGE_SIZE'] = 8
 db = SQLAlchemy(app)
