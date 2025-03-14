@@ -1,3 +1,4 @@
+from cloudinary.compat import to_string
 from flask import render_template, request, redirect, session, jsonify, send_file
 from quan_ly_chuyen_bay_app.app.models import UserRole
 from quan_ly_chuyen_bay_app.app import app, login
@@ -104,15 +105,18 @@ def lay_du_lieu_bao_cao():
         return jsonify(data)
 
 
-
 @app.route("/api/ThemGioHang", methods=['POST'])
 def them_gio_hang():
     if current_user.is_authenticated and current_user.user_role == UserRole.KHACH_HANG:
         if 'gio_hang' not in session:
             session['gio_hang'] = {}
+        print("📌 Yêu cầu nhận được:", request.json)
 
         id_chuyen_bay = str(request.json.get('id_chuyen_bay'))
         id_ghe = str(request.json.get('id_ghe_chon'))
+
+        print(id_chuyen_bay)
+        print(id_ghe)
 
         gio_hang = dict(session['gio_hang'])
         gio_hang[id_ghe] = {
@@ -120,7 +124,13 @@ def them_gio_hang():
             'id_ghe': id_ghe
         }
         session['gio_hang'] = gio_hang
-        return jsonify(utils.lay_thong_tin(session['gio_hang']))
+        session.modified = True
+        data = utils.lay_thong_tin(session['gio_hang'])
+        print(data["so_luong"])
+        print(data["tong_tien"])
+        return jsonify({'so_luong': data["so_luong"],
+                        'tong_tien': data["tong_tien"]
+                        })
 
 
 @app.route('/api/themBinhLuan/<int:id_ve>', methods=['POST'])
@@ -636,6 +646,7 @@ def quan_ly_khach_hang():
         return render_template("NhanVien/QuanLyKhachHang/QuanLyKhachHang.html", ds_khach_hang=ds_khach_hang)
     else:
         return redirect("/NhanVien")
+
 
 @app.route("/NhanVien/QuanLyKhachHang/CapNhatKhachHang", methods=['GET', 'POST'])
 def cap_nhat_khach_hang():

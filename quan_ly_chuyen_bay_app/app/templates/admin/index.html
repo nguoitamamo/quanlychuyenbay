@@ -4,6 +4,7 @@
   <h1 class="text-center ">welcome, {{current_user.ten_nguoi_dung}}</h1>
 {% else %}
   <form action="/admin-login" class ="col-12 col-md-4" style ='margin : 100px auto' method='post'>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
       <div data-mdb-input-init class="form-outline mb-4">
         <input type="text" id="id_tai_khoan" class="form-control" name="tai_khoan" />
