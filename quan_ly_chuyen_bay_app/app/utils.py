@@ -1,5 +1,6 @@
-import yagmail
+ 
 
+import yamail
 import quan_ly_chuyen_bay_app.app.dao as dao
 
 from flask_login import current_user
@@ -95,7 +96,7 @@ def lay_ds_ghe(id_chuyen_bay):
 
 
 def gui_email( email_nguoi_dung):
-    yag = yagmail.SMTP("huynhngoctruongg@gmail.com", "amsh rerk vfcf dpte")
+    yag = yamail.SMTP("huynhngoctruongg@gmail.com", "amsh rerk vfcf dpte")
     noi_dung = str(random.randint(10000, 99999))
     yag.send(to=email_nguoi_dung, subject="Mã xác nhận", contents=noi_dung)
     return noi_dung
