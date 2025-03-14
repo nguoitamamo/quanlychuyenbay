@@ -637,7 +637,6 @@ def quan_ly_khach_hang():
     else:
         return redirect("/NhanVien")
 
-
 @app.route("/NhanVien/QuanLyKhachHang/CapNhatKhachHang", methods=['GET', 'POST'])
 def cap_nhat_khach_hang():
     if current_user.is_authenticated and current_user.user_role == UserRole.NHAN_VIEN:
